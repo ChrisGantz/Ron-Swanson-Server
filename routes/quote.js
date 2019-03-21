@@ -11,15 +11,15 @@ router.get('/', (req, res, next) => {
 });
 
 router.post('/', (req, res, next) => {
-  // console.log('req.body:', req.body);
-  const { quotes, rating, localStorage, cookie } = req.body;
+  console.log('req.body:', req.body);
+  const { quotes, rating, localSession, cookieSession } = req.body;
   if(!quotes) {
     const err = new console.error(('Missing quote in body request'));
     err.status = 400;
     return next(err);
   }
 
-  const insertQuote = { quotes, rating, localStorage, cookie };
+  const insertQuote = { quotes, rating, localSession, cookieSession };
 
   Quote.create(insertQuote)
     .then(results => res

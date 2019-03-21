@@ -6,10 +6,11 @@ const cors = require('cors');
 const morgan = require('morgan');
 
 const { PORT, MONGODB_URI, CLIENT_ORIGIN } = require('./config');
-
+const quoteRouter = require('./routes/quote');
 
 const app = express();
 
+mongoose.Promise = global.Promise;
 
 app.use(
   morgan(process.env.NODE_ENV === 'production' ? 'common' : 'dev', {
@@ -23,7 +24,10 @@ app.use(
   })
 );
 
+app.use(express.json());
+
 // mount routes
+app.use('/api/quotes', quoteRouter);
 
 // Custom Error Handler
 app.use((err, req, res, next) => {

@@ -2,7 +2,7 @@
 const mongoose = require('mongoose');
 
 const quoteSchema = new mongoose.Schema({
-  quote: [{ type: String, required: true }],
+  quotes: [{ type: String, required: true }],
   rating: { type: Number },
   localSession: { type: String },
   cookieSession: { type: String }

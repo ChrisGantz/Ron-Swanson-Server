@@ -1,0 +1,19 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "Works with swanson api to rate quotes",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "cross-env NODE_ENV=test mocha --file test/server.test.js --colors --timeout 5000"
+  },
+  "author": "Chris G",
+  "license": "MIT",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^7.0.0",
+    "express": "^4.16.4",
+    "mongoose": "^5.4.19",
+    "morgan": "^1.9.1"
+  }
+}

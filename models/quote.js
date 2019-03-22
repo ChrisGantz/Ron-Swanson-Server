@@ -3,9 +3,13 @@ const mongoose = require('mongoose');
 
 const quoteSchema = new mongoose.Schema({
   quote: { type: String, required: true },
-  rating: { type: Number },
-  localSession: { type: String },
-  cookieSession: { type: String }
+  userVotes: [
+    {
+      localSession: { type: String },
+      cookieSession: { type: String },
+      rating: { type: Number }
+    }
+  ]
 });
 
 quoteSchema.set('timestamps', true);

@@ -5,6 +5,7 @@ const quoteSchema = new mongoose.Schema({
   quote: { type: String, required: true },
   userVotes: [
     {
+      userIp: { type: String },
       localSession: { type: String },
       cookieSession: { type: String },
       rating: { type: Number }

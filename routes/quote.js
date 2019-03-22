@@ -5,9 +5,6 @@ const router = express.Router();
 const Quote = require('../models/quote');
 
 router.get('/', (req, res, next) => {
-  console.log('req.ip ', req.ip);
-  let ip = req.header('x-forwarded-for') || req.connection.remoteAddress;
-  console.log('ip:', ip);
   Quote.find()
     .then(results => res.json(results))
     .catch(err => next(err));
@@ -15,9 +12,8 @@ router.get('/', (req, res, next) => {
 
 router.post('/', (req, res, next) => {
   let ip = req.header('x-forwarded-for') || req.connection.remoteAddress;
-  console.log('ip:post', ip);
   const { quote, userVotes } = req.body;
-  // userVotes[0].userIp = ip;
+  userVotes[0].userIp = ip;
   if(!quote) {
     const err = new console.error(('Missing quote in body request'));
     err.status = 400;
@@ -35,9 +31,8 @@ router.post('/', (req, res, next) => {
 
 router.put('/', (req, res, next) => {
   const { quote, newVote } = req.body;
-  const updateVoters = { $push: { userVotes: newVote} };
-  // let ip = req.header('x-forwarded-for') || req.connection.remoteAddress;
-  const ip = '192.168.1.55';
+  // get ip of user then check if they have voted before if they havent accept req and push new vote info
+  let ip = req.header('x-forwarded-for') || req.connection.remoteAddress;
   const checkIfUserVoted = {quote: quote, userVotes: {$elemMatch: {userIp: ip}}};
   return Quote.find(checkIfUserVoted)
     .count()
@@ -52,6 +47,8 @@ router.put('/', (req, res, next) => {
           location: 'userVotes'
         });
       }
+      newVote.userIp = ip;
+      const updateVoters = { $push: { userVotes: newVote } };
       return Quote.findOneAndUpdate({quote: quote}, updateVoters, { new: true });
     })
     .then(results => res.status(201).json(results))

@@ -2,10 +2,15 @@
 const mongoose = require('mongoose');
 
 const quoteSchema = new mongoose.Schema({
-  quote: { type: String, required: true },
-  rating: { type: Number },
-  localSession: { type: String },
-  cookieSession: { type: String }
+  quote: { type: String, required: true, unique: true },
+  userVotes: [
+    {
+      userIp: { type: String, required: true, unique: true },
+      localSession: { type: String },
+      cookieSession: { type: String },
+      rating: { type: Number }
+    }
+  ]
 });
 
 quoteSchema.set('timestamps', true);

@@ -5,7 +5,8 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "test": "cross-env NODE_ENV=test mocha --file test/server.test.js --colors --timeout 5000"
+    "test": "cross-env NODE_ENV=test mocha --file test/server.test.js --colors --timeout 5000",
+    "heroku": "node server.js"
   },
   "author": "Chris G",
   "license": "MIT",

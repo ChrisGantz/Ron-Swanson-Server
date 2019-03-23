@@ -33,6 +33,7 @@ router.put('/', (req, res, next) => {
   const { quote, newVote } = req.body;
   // get ip of user then check if they have voted before if they havent accept req and push new vote info
   let ip = req.header('x-forwarded-for') || req.connection.remoteAddress;
+  console.log('ip:', ip);
   const checkIfUserVoted = {quote: quote, userVotes: {$elemMatch: {userIp: ip}}};
   return Quote.find(checkIfUserVoted)
     .count()

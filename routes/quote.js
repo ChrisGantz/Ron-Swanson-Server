@@ -43,7 +43,7 @@ router.put('/', (req, res, next) => {
         return Promise.reject({
           code: 422,
           reason: 'Validation Error',
-          message: 'You voted already',
+          message: 'You rated this quote already!',
           location: 'userVotes'
         });
       }

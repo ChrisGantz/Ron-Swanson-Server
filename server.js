@@ -18,11 +18,20 @@ app.use(
   })
 );
 
+app.use(cors());
+
 app.use(
   cors({
     origin: CLIENT_ORIGIN
   })
 );
+app.all('*', function (req, res, next) {
+  let origin = req.get('origin');
+  res.header('Access-Control-Allow-Origin', origin);
+  res.header('Access-Control-Allow-Headers', 'X-Requested-With');
+  res.header('Access-Control-Allow-Headers', 'Content-Type');
+  next();
+});
 
 app.use(express.json());
 
